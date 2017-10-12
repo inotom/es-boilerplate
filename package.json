@@ -1,0 +1,30 @@
+{
+  "name": "es-boilerplate",
+  "version": "1.0.0",
+  "description": "JavaScript project boilerplate.",
+  "main": "src/index.js",
+  "config": {
+    "dist_dir": "dist",
+    "src_dir": "src",
+    "js_src": "src/index.js",
+    "js_out": "dist/app.min.js"
+  },
+  "scripts": {
+    "start": "npm run server & npm run watch",
+    "server": "browser-sync start --server $npm_package_config_dist_dir --files \"$npm_package_config_dist_dir/**/*\" --no-open",
+    "prebuild": "npm run clean && npm test && npm run lint",
+    "build": "npm run build:prod ",
+    "build:dev": "NODE_ENV=development browserify --debug $npm_package_config_js_src -t babelify -o $npm_package_config_js_out",
+    "build:prod": "NODE_ENV=production browserify $npm_package_config_js_src -t babelify | uglifyjs -m -c --comments | insertcopy >$npm_package_config_js_out",
+    "clean": "rimraf '**/.DS_Store' & rimraf $npm_package_config_js_out",
+    "watch": "NODE_ENV=development watchify --debug -t babelify $npm_package_config_js_src -o $npm_package_config_js_out -v",
+    "watch:test": "nodemon -w test -w $npm_package_config_src_dir -e js -x 'npm test'",
+    "lint": "eslint $npm_package_config_src_dir/js",
+    "test": "mocha --require babel-register test/**/*.js"
+  },
+  "keywords": [],
+  "author": "iNo (http://www.serendip.ws/)",
+  "license": "MIT",
+  "devDependencies": {
+  }
+}

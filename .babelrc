@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015"
+  ],
+  "plugins": [
+    "transform-inline-environment-variables"
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "power-assert"
+      ]
+    }
+  }
+}
